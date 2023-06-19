@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react';
 import './Row.css';
 import axios from './axios';
-import YouTube from "react-youtube";
-import movieTrailer from "movie-trailer"
+import youTube from "react-youtube";
+import movieTrailer from "movie-trailer";
 
 const base_url="https://image.tmdb.org/t/p/original";
 function Row({title,fetchUrl,isLargeRow}) {
@@ -29,10 +29,10 @@ function Row({title,fetchUrl,isLargeRow}) {
       if(trailerUrl) {
         setTrailerUrl("");
       }else {
-        movieTrailer(null ,{ tmdbId: movie.id })
+        movieTrailer(movie?.title || movie?.name || movie.original_name)
         .then((url) => {
           const urlParams = new URLSearchParams(new URL(setTrailerUrl(url).search));
-          setTrailerUrl(urlParams.get("v"));
+          setTrailerUrl(urlParams.get("V"));
         })
           .catch((error) => console.log(error));
         }
@@ -56,7 +56,7 @@ function Row({title,fetchUrl,isLargeRow}) {
         ))}
       </div>
       <div style={{ padding: "40px" }}>
-            {trailerUrl && <YouTube videoID={trailerUrl} opts={opts} />}
+            {trailerUrl && <youTube videoID={trailerUrl} opts={opts} /> }
       </div>
     </div>
   )
