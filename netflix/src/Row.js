@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react';
 import './Row.css';
 import axios from './axios';
-import youTube from "react-youtube";
-import movieTrailer from "movie-trailer";
+import YouTube from 'react-youtube';
+import movieTrailer from 'movie-trailer';
 
 const base_url="https://image.tmdb.org/t/p/original";
 function Row({title,fetchUrl,isLargeRow}) {
@@ -25,21 +25,20 @@ function Row({title,fetchUrl,isLargeRow}) {
       },
      };
 
-     const handleClick = (movie) => {
-      if(trailerUrl) {
-        setTrailerUrl("");
-      }else {
-        movieTrailer(movie?.title || movie?.name || movie.original_name)
-        .then((url) => {
-          const urlParams = new URLSearchParams(new URL(setTrailerUrl(url).search));
-          setTrailerUrl(urlParams.get("V"));
-        })
-          .catch((error) => console.log(error));
-        }
-      };
-     
 
-    //  console.log(movies);
+     const handleClick = (movie) => {
+      if (trailerUrl) {
+        setTrailerUrl("");
+      } else {
+        movieTrailer(movie?.name || movie?.title || movie?.original_title || "")
+          .then((url) => {
+            const urlParams = new URLSearchParams(new URL(url).search);
+            setTrailerUrl(urlParams.get("v"));
+          })
+          .catch((error) => console.log(error));
+      }
+    };
+
 
   return (
     <div className="row">
@@ -56,7 +55,7 @@ function Row({title,fetchUrl,isLargeRow}) {
         ))}
       </div>
       <div style={{ padding: "40px" }}>
-            {trailerUrl && <youTube videoID={trailerUrl} opts={opts} /> }
+            {trailerUrl && <YouTube videoID={trailerUrl} opts={opts} /> }
       </div>
     </div>
   )
