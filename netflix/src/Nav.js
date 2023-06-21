@@ -15,7 +15,7 @@ function Nav() {
   return (
    <div className={`nav ${show && "nav__black"}`}>
     <img className="nav__logo"
-    src = "https://thewhitonline.com/wp-content/uploads/2020/09/netflix-logo.png"
+    src = "https://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
     alt = "Netflix Logo" />
 
     <img className="nav__avater"
